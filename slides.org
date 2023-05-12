@@ -309,23 +309,20 @@ Nested ODE solvers:
   r^{(i+1/2)} &= r^{(i)} - \frac{h}{2}\nabla_{\theta} \log{p(\theta^{(i)} | y)},\text{  a step in leapfrog}\\
   \nabla_{\theta} \log{p(\theta^{(i)} | y)} &= \nabla_{\theta} \log{p(\theta^{(i)})} + \nabla_{\theta} \log{p(y | \theta^{(i)})},\\
   \nabla_{\theta} \log{p(y | \theta^{(i)})} &= - (\cdots)\sum_{j,k}\nabla_{\theta} \frac{\hat{y}_{jk}(\theta_j^{(i)}) - y_{jk}}{\sigma^{(i)}} + \dots,\\
-  \nabla_{\theta} \hat{y}_{jk}&: \text{ forward or adjoint sensitivity solver}
+  \nabla_{\theta} \hat{y}_{jk}&: ?
+\end{align*}
+
+
+** Sensitivity solution
+\begin{align*}
+  \frac{d\hat{y}}{dt} = f(t;\theta),\\
+  \nabla_{\theta} \frac{d\hat{y}}{dt} = \thf(t;\theta),\\
 \end{align*}
 
 
 ** Automatic differentiation
-For subject $i=1, 2, \dots$, assuming single observation:
-\begin{gather*}
-\pi(\theta_1, \theta_2, \dots) = \log{p(\theta | y)} = -\frac{(\hat{y}_1-y_1)^2}{2\sigma^2} - \frac{(\hat{y}_2-y_2)^2}{2\sigma^2} - \dots,\\
-\left[b_1=\frac{(\hat{y}_1-y_1)^2}{\sigma^2}, \frac{d\pi}{db_1}=-\frac{1}{2} \right],
-\quad \dots,\\
-\left[a_1=(\hat{y}_1-y_1)^2, \frac{d\pi}{da_1}=\frac{d\pi}{db_1}\frac{db_1}{da_1} =\frac{d\pi}{db_1}\frac{1}{\sigma^2} \right],
-\quad \dots,\\
-\left[\hat{y}_1, \frac{d\pi}{d\hat{y}_1}=\frac{d\pi}{da_1}\frac{da_1}{d\hat{y}_1} \right],
-\quad \dots,\\
-\left[\theta_1, \frac{d\pi}{d\theta_1}=\frac{d\pi}{d\hat{y}_1}\frac{d\hat{y}_1}{d\theta_1} \right],
-\quad \dots,
-\end{gather*}
+#+ATTR_LATEX: :width \textwidth
+[[./figure/autodiff_diag.pdf]]
 
 ** Automatic differentiation
 *** Another model                                                     :BMCOL:

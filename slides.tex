@@ -1,4 +1,4 @@
-% Created 2023-05-12 Fri 12:28
+% Created 2023-05-12 Fri 14:27
 % Intended LaTeX compiler: pdflatex
 \documentclass[bigger]{beamer}
 \usepackage[utf8]{inputenc}
@@ -41,7 +41,7 @@
 \end{frame}
 
 
-\begin{frame}[label={sec:org67a70f3}]{NOT to talk about}
+\begin{frame}[label={sec:orgf95f2f4}]{NOT to talk about}
 \begin{columns}
 \begin{column}{0.50\columnwidth}
 \begin{center}
@@ -60,8 +60,8 @@
 
 
 \section{The problem}
-\label{sec:org6cbb9e6}
-\begin{frame}[label={sec:orgd0ebe6d}]{Pharmacokinetics (PK) data}
+\label{sec:org1c7383e}
+\begin{frame}[label={sec:org4277db9}]{Pharmacokinetics (PK) data}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\textwidth]{./figure/twocpt_ppc_4x8.pdf}
@@ -69,7 +69,7 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org50151d1}]{A Pharmacokinetics (PK) model}
+\begin{frame}[label={sec:org15d5b90}]{A Pharmacokinetics (PK) model}
 \begin{align*}
   \frac{\mathrm d \hat{y}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{y}_\mathrm{gut} \\
   \frac{\mathrm d \hat{y}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{y}_\mathrm{gut} -\left (k_{\text{CL}} + k_{\text{Q,cent}} \right) \hat{y}_\mathrm{cent} + k_{\text{Q,peri}} \hat{y}_\mathrm{peri} \\
@@ -81,7 +81,7 @@
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orga71d9af}]{A statistical model}
+\begin{frame}[label={sec:orgf8fc30d}]{A statistical model}
 \begin{align*}
 \theta & \equiv \{k_a, k_{\text{CL}}, k_{\text{Q,}\cdot}\},\\
 \hat{y}(t) & = \hat{y}(t;\theta),\\
@@ -95,7 +95,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org00bbb35}]{Estimate \(\theta\)}
+\begin{frame}[label={sec:orgf295736}]{Estimate \(\theta\)}
 \begin{itemize}
 \item Maximum likelihood estimation
 \(\theta_{\text{argmax}}(p(y|\theta))\)
@@ -108,7 +108,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org2903fa8}]{Prior \& likelihood}
+\begin{frame}[label={sec:org4d66416}]{Prior \& likelihood}
 \begin{align*}
   \log{p(\theta|y)} &= C + \log{p(y | \theta)} + \log{p(\theta)}
 \end{align*}
@@ -118,7 +118,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org6fe007e}]{Sample the posterior}
+\begin{frame}[label={sec:orgc2b6319}]{Sample the posterior}
 \(\text{target (distribution)} = \log{p(\theta|y)} = \log{p(y | \theta)} + \log{p(\theta)}\)
 
 \begin{itemize}
@@ -132,7 +132,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgf063e50}]{The Metropolis-Hastings algorithm}
+\begin{frame}[label={sec:orga927d8d}]{The Metropolis-Hastings algorithm}
 Proposal-rejection from \(\theta^{(i)}\) to \(\theta^{(i+1)}\).
 \begin{enumerate}
 \item Propose \(\theta^{(i+1)}\) according to transition density \(q(\theta^{(i+1)}, \theta^{(i)})\).
@@ -152,7 +152,7 @@ its stationary distribution.
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgca8cb48}]{Why MCMC?}
+\begin{frame}[label={sec:org04b0cc9}]{Why MCMC?}
 \begin{quote}
 Monte Carlo is an extremely bad method; it should be used only when all alternative methods
 are worse.
@@ -165,14 +165,14 @@ are worse.
 
 
 \section{You're Gonna Need a Bigger Boat}
-\label{sec:orgfb0baab}
-\begin{frame}[label={sec:orgaaa819f}]{The problem}
+\label{sec:orgaa39164}
+\begin{frame}[label={sec:orgf3d5aed}]{The problem}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twocpt_pop_ppc1.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgeff8b63}]{Hierarchical model}
+\begin{frame}[label={sec:org274eaeb}]{Hierarchical model}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -197,7 +197,7 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgde283b3}]{Challenges: high dimensional gaussian distribution}
+\begin{frame}[label={sec:org537530c}]{Challenges: high dimensional gaussian distribution}
 \(p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0\).
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -223,7 +223,7 @@ Random Walk sampler is not efficient.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org674c026}]{Challenges: Geometry of posterior}
+\begin{frame}[label={sec:org97cd683}]{Challenges: Geometry of posterior}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -247,8 +247,8 @@ Optimizer is not efficient.
 \end{frame}
 
 \section{Up In the Air}
-\label{sec:org6ff5fb9}
-\begin{frame}[label={sec:org3016f13}]{Hamiltonian Monte Carlo}
+\label{sec:orgbb8c3ad}
+\begin{frame}[label={sec:org2987baf}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -270,7 +270,7 @@ Optimizer is not efficient.
 \end{frame}
 
 
-\begin{frame}[label={sec:org4c72f46}]{Hamiltonian Monte Carlo}
+\begin{frame}[label={sec:org32c87e6}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -293,7 +293,7 @@ Apply M-H to \(p(r, \theta)\)
 \end{frame}
 
 
-\begin{frame}[label={sec:org9faa768}]{Hamiltonian Monte Carlo}
+\begin{frame}[label={sec:org6cc6d5d}]{Hamiltonian Monte Carlo}
 \begin{equation*}
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
@@ -307,7 +307,7 @@ Proposal \((r^{(i+1)}, \theta^{(i+1)})\):
 \end{frame}
 
 
-\begin{frame}[label={sec:orgab3cf23}]{A principled sampler for \(p(\theta|y)\)}
+\begin{frame}[label={sec:org1832f60}]{A principled sampler for \(p(\theta|y)\)}
 \begin{columns}
 \begin{column}{0.8\columnwidth}
 \begin{center}
@@ -325,8 +325,8 @@ Proposal \((r^{(i+1)}, \theta^{(i+1)})\):
 
 
 \section{Small moves, Ellie. Small moves}
-\label{sec:orgc73bf48}
-\begin{frame}[label={sec:orgcee03bf}]{A tale of two ODEs}
+\label{sec:org834088b}
+\begin{frame}[label={sec:org65ec6f5}]{A tale of two ODEs}
 \(\theta\)\textsuperscript{(i)} = \{\(\theta\)\textsuperscript{(i)}\textsubscript{j}\}, j=1,2,\dots{},n: \((r, \theta)(\tau^{(i)}) \rightarrow (r, \theta)(\tau^{(i+1)})\)
 \begin{align*}
 \begin{cases}
@@ -344,22 +344,13 @@ Nested ODE solvers:
 \end{frame}
 
 
-\begin{frame}[label={sec:orge41d01c}]{Automatic differentiation}
-For subject \(i=1, 2, \dots\), assuming single observation:
-\begin{gather*}
-\pi(\theta_1, \theta_2, \dots) = \log{p(\theta | y)} = -\frac{(\hat{y}_1-y_1)^2}{2\sigma^2} - \frac{(\hat{y}_2-y_2)^2}{2\sigma^2} - \dots,\\
-\left[b_1=\frac{(\hat{y}_1-y_1)^2}{\sigma^2}, \frac{d\pi}{db_1}=-\frac{1}{2} \right],
-\quad \dots,\\
-\left[a_1=(\hat{y}_1-y_1)^2, \frac{d\pi}{da_1}=\frac{d\pi}{db_1}\frac{db_1}{da_1} =\frac{d\pi}{db_1}\frac{1}{\sigma^2} \right],
-\quad \dots,\\
-\left[\hat{y}_1, \frac{d\pi}{d\hat{y}_1}=\frac{d\pi}{da_1}\frac{da_1}{d\hat{y}_1} \right],
-\quad \dots,\\
-\left[\theta_1, \frac{d\pi}{d\theta_1}=\frac{d\pi}{d\hat{y}_1}\frac{d\hat{y}_1}{d\theta_1} \right],
-\quad \dots,
-\end{gather*}
+\begin{frame}[label={sec:orgd817f44}]{Automatic differentiation}
+\begin{center}
+\includegraphics[width=\textwidth]{./figure/autodiff_diag.pdf}
+\end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org3d0b3d0}]{Automatic differentiation}
+\begin{frame}[label={sec:org1d1287e}]{Automatic differentiation}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -376,20 +367,20 @@ For subject \(i=1, 2, \dots\), assuming single observation:
 \end{frame}
 
 
-\begin{frame}[label={sec:org5b61171}]{Estimation}
+\begin{frame}[label={sec:orged7c8a4}]{Estimation}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/pop_trace.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgacec7ca}]{Estimation}
+\begin{frame}[label={sec:org8c98fb3}]{Estimation}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/pop_dens.pdf}
 \end{center}
 \end{frame}
 
 
-\begin{frame}[label={sec:orgbccb5a4}]{Misc}
+\begin{frame}[label={sec:org351264b}]{Misc}
 \begin{itemize}
 \item Diagnostics
 \item Parallel chains
