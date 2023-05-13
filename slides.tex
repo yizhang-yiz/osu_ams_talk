@@ -1,4 +1,4 @@
-% Created 2023-05-13 Sat 16:10
+% Created 2023-05-13 Sat 16:21
 % Intended LaTeX compiler: pdflatex
 \documentclass[bigger]{beamer}
 \usepackage[utf8]{inputenc}
@@ -41,7 +41,7 @@
 \end{frame}
 
 
-\begin{frame}[label={sec:orgadf54cb}]{NOT to talk about}
+\begin{frame}[label={sec:org8077505}]{NOT to talk about}
 \begin{columns}
 \begin{column}{0.50\columnwidth}
 \begin{center}
@@ -60,8 +60,8 @@
 
 
 \section{The problem}
-\label{sec:org590b80a}
-\begin{frame}[label={sec:orgd60fbb9}]{Pharmacokinetics (PK) data}
+\label{sec:orgdae473d}
+\begin{frame}[label={sec:org11582b9}]{Pharmacokinetics (PK) data}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\textwidth]{./figure/twocpt_ppc_4x8.pdf}
@@ -69,7 +69,7 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org7c04983}]{A Pharmacokinetics (PK) model}
+\begin{frame}[label={sec:org0a93c14}]{A Pharmacokinetics (PK) model}
 \begin{align*}
   \frac{\mathrm d \hat{y}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{y}_\mathrm{gut} \\
   \frac{\mathrm d \hat{y}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{y}_\mathrm{gut} -\left (k_{\text{CL}} + k_{\text{Q,cent}} \right) \hat{y}_\mathrm{cent} + k_{\text{Q,peri}} \hat{y}_\mathrm{peri} \\
@@ -81,7 +81,7 @@
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org0f72ff1}]{A statistical model}
+\begin{frame}[label={sec:org61a1ab0}]{A statistical model}
 \begin{align*}
 \theta & \equiv \{k_a, k_{\text{CL}}, k_{\text{Q,}\cdot}\},\\
 \hat{y}(t) & = \hat{y}(t;\theta),\\
@@ -95,7 +95,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgde436b1}]{Estimate \(\theta\)}
+\begin{frame}[label={sec:org8624267}]{Estimate \(\theta\)}
 \begin{itemize}
 \item <1->  Maximum likelihood estimation
 \(\theta_{\text{argmax}}(p(y|\theta))\)
@@ -113,7 +113,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgd0da4be}]{Prior \& likelihood}
+\begin{frame}[label={sec:org3353f7b}]{Prior \& likelihood}
 \begin{align*}
   \log{p(\theta|y)} &= C + \log{p(y | \theta)} + \log{p(\theta)}
 \end{align*}
@@ -123,7 +123,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org4c77049}]{Sample the posterior}
+\begin{frame}[label={sec:orge5747a3}]{Sample the posterior}
 \(\text{target (distribution)} = \log{p(\theta|y)} = \log{p(y | \theta)} + \log{p(\theta)}\)
 
 \begin{itemize}
@@ -138,20 +138,20 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org6777ec9}]{Posterior samples: trace}
+\begin{frame}[label={sec:orge9afbd3}]{Posterior samples: trace}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twoCpt_trace.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org6cf283c}]{Posterior samples: density}
+\begin{frame}[label={sec:orgf6e44da}]{Posterior samples: density}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twoCpt_dens.pdf}
 \end{center}
 \end{frame}
 
 
-\begin{frame}[label={sec:org95d0d87}]{The Metropolis-Hastings algorithm}
+\begin{frame}[label={sec:org4f281d8}]{The Metropolis-Hastings algorithm}
 Proposal-rejection from \(\theta^{(i)}\) to \(\theta^{(i+1)}\).
 \begin{enumerate}
 \item Propose \(\theta^{(i+1)}\) according to transition density \(q(\theta^{(i+1)}, \theta^{(i)})\).
@@ -171,7 +171,7 @@ its stationary distribution.
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org6b66099}]{Why MCMC?}
+\begin{frame}[label={sec:org2da53ad}]{Why MCMC?}
 \begin{quote}
 Monte Carlo is an extremely bad method; it should be used only when all alternative methods
 are worse.
@@ -184,14 +184,14 @@ are worse.
 
 
 \section{You're Gonna Need a Bigger Boat}
-\label{sec:orgbf31f9c}
-\begin{frame}[label={sec:org1b1e932}]{The problem}
+\label{sec:orgc6c8e35}
+\begin{frame}[label={sec:orgef83949}]{The problem}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twocpt_pop_ppc1.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org7ea550d}]{Hierarchical model}
+\begin{frame}[label={sec:org0663a2b}]{Hierarchical model}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -216,7 +216,7 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org9ffc2da}]{Challenges: high dimensional gaussian distribution}
+\begin{frame}[label={sec:org2ca6f66}]{Challenges: high dimensional gaussian distribution}
 \(p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0\).
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -242,7 +242,7 @@ Random Walk sampler is not efficient.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org76207a7}]{Challenges: Geometry of posterior}
+\begin{frame}[label={sec:orgf9762e9}]{Challenges: Geometry of posterior}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -266,8 +266,8 @@ Optimizer is not efficient.
 \end{frame}
 
 \section{Up In the Air}
-\label{sec:org1f3ae6f}
-\begin{frame}[label={sec:org8eea16e}]{Hamiltonian Monte Carlo}
+\label{sec:org6d8d506}
+\begin{frame}[label={sec:org131148e}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -289,7 +289,7 @@ Optimizer is not efficient.
 \end{frame}
 
 
-\begin{frame}[label={sec:org81d1e91}]{Hamiltonian Monte Carlo}
+\begin{frame}[label={sec:orgc7acf58}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -312,31 +312,24 @@ Apply M-H to \(p(r, \theta)\)
 \end{frame}
 
 
-\begin{frame}[label={sec:orge149773}]{Hamiltonian Monte Carlo}
-\begin{equation*}
+\begin{frame}[label={sec:org8a0df4f}]{A principled sampler for \(p(\theta|y)\)}
+\begin{align*}
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
-  \right]
-\end{equation*}
-Proposal \((r^{(i+1)}, \theta^{(i+1)})\):
-\begin{align*}
-  r \sim \text{Normal}(0, M),\\
+  \right]\\
+  r \sim \text{Normal}(0, M) \Longrightarrow
   (r^{(i)}, \theta^{(i)}) \rightarrow (r^{(i+1)}, \theta^{(i+1)})
 \end{align*}
-\end{frame}
-
-
-\begin{frame}[label={sec:org2454474}]{A principled sampler for \(p(\theta|y)\)}
 \begin{columns}
-\begin{column}{0.8\columnwidth}
+\begin{column}{0.7\columnwidth}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{./figure/sampler_path.png}
+\includegraphics[width=0.7\textwidth]{./figure/sampler_path.png}
 \end{center}
 \end{column}
 
 \begin{column}{0.2\columnwidth}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{./figure/sampler_path2.png}
+\includegraphics[width=0.5\textwidth]{./figure/sampler_path2.png}
 \end{center}
 \end{column}
 \end{columns}
@@ -344,8 +337,8 @@ Proposal \((r^{(i+1)}, \theta^{(i+1)})\):
 
 
 \section{Small moves, Ellie. Small moves}
-\label{sec:org1ef9542}
-\begin{frame}[label={sec:org85f78f8}]{A tale of two ODEs}
+\label{sec:orgbfceb19}
+\begin{frame}[label={sec:orgf0972b3}]{A tale of two ODEs}
 \(\theta\)\textsuperscript{(i)} = \{\(\theta\)\textsuperscript{(i)}\textsubscript{j}\}, j=1,2,\dots{},n: \((r, \theta)(\tau^{(i)}) \rightarrow (r, \theta)(\tau^{(i+1)})\)
 \begin{align*}
 \begin{cases}
@@ -361,13 +354,13 @@ Nested ODE solvers:
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org56cce9b}]{Automatic differentiation (1 obsv/subject: k=1)}
+\begin{frame}[label={sec:org4b14711}]{Automatic differentiation (1 obsv/subject: k=1)}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/autodiff_diag.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org89ebb9c}]{Automatic differentiation}
+\begin{frame}[label={sec:org5dace32}]{Automatic differentiation}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -383,7 +376,7 @@ Nested ODE solvers:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orga723fe8}]{Sensitivity solution}
+\begin{frame}[label={sec:orgd8965df}]{Sensitivity solution}
 \begin{align*}
   &\frac{d\hat{y}}{dt} = f(t, \hat{y};\theta) \rightarrow \nabla_{\theta} \frac{d\hat{y}}{dt} = \nabla_{\theta} f(t, \hat{y};\theta)\\
   &\frac{d\nabla_{\theta} \hat{y}}{dt} = f_{\theta} + f_{\hat{y}}\nabla_{\theta}\hat{y}
@@ -392,7 +385,7 @@ Use the autodiff calculate \(f_{\theta}\) and \(f_{\hat{y}}\).
 \end{frame}
 
 
-\begin{frame}[label={sec:orgd89d1d8}]{Thanks}
+\begin{frame}[label={sec:orgca49112}]{Thanks}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}

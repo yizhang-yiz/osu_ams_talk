@@ -276,20 +276,14 @@ Apply M-H to $p(r, \theta)$
 \end{equation*}
 
 
-** Hamiltonian Monte Carlo
-\begin{equation*}
+** A principled sampler for $p(\theta|y)$
+\begin{align*}
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
-  \right]
-\end{equation*}
-Proposal $(r^{(i+1)}, \theta^{(i+1)})$:
-\begin{align*}
-  r \sim \text{Normal}(0, M),\\
+  \right]\\
+  r \sim \text{Normal}(0, M) \Longrightarrow
   (r^{(i)}, \theta^{(i)}) \rightarrow (r^{(i+1)}, \theta^{(i+1)})
 \end{align*}
-
-
-** A principled sampler for $p(\theta|y)$
 # dat <- bind_rows(
 #   tibble(theta1 = rnorm(7000, sd = 1),
 #          theta2 = rnorm(7000, sd = 10),
@@ -300,17 +294,16 @@ Proposal $(r^{(i+1)}, \theta^{(i+1)})$:
 # dat |> ggplot(aes(theta1, theta2)) + geom_density_2d_filled() + xlim(-2,2.5) + ylim(-20,20) + geom_curve(data=d2, aes(x1=theta1, y1=theta2, xend=theta1.end, yend=theta2.end), colour="white", arrow = arrow(length = unit(0.1, "inches"))) + geom_point(data=d2, aes(theta1, theta2), colour="white") + coord_fixed( ratio=1) + theme(legend.position = "none")
 *** Another model                                                     :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.8
+:BEAMER_col: 0.7
 :END:
-#+ATTR_LATEX: :width 0.9\textwidth
+#+ATTR_LATEX: :width 0.7\textwidth
 [[./figure/sampler_path.png]]
 
 *** Another model                                                     :BMCOL:
 :PROPERTIES:
-:BEAMER_act: <2->
 :BEAMER_col: 0.2
 :END:
-#+ATTR_LATEX: :width 0.7\textwidth
+#+ATTR_LATEX: :width 0.5\textwidth
 [[./figure/sampler_path2.png]]
 
 
