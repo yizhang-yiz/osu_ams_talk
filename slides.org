@@ -308,19 +308,10 @@ Nested ODE solvers:
 \begin{align*}
   r^{(i+1/2)} &= r^{(i)} - \frac{h}{2}\nabla_{\theta} \log{p(\theta^{(i)} | y)},\text{  a step in leapfrog}\\
   \nabla_{\theta} \log{p(\theta^{(i)} | y)} &= \nabla_{\theta} \log{p(\theta^{(i)})} + \nabla_{\theta} \log{p(y | \theta^{(i)})},\\
-  \nabla_{\theta} \log{p(y | \theta^{(i)})} &= - (\cdots)\sum_{j,k}\nabla_{\theta} \frac{\hat{y}_{jk}(\theta_j^{(i)}) - y_{jk}}{\sigma^{(i)}} + \dots,\\
-  \nabla_{\theta} \hat{y}_{jk}&: ?
+  \nabla_{\theta} \log{p(y | \theta^{(i)})} &= - (\cdots)\sum_{j,k}\nabla_{\theta} \frac{\hat{y}_{jk}(\theta_j^{(i)}) - y_{jk}}{\sigma^{(i)}} + \dots
 \end{align*}
 
-
-** Sensitivity solution
-\begin{align*}
-  \frac{d\hat{y}}{dt} = f(t;\theta),\\
-  \nabla_{\theta} \frac{d\hat{y}}{dt} = \thf(t;\theta),\\
-\end{align*}
-
-
-** Automatic differentiation
+** Automatic differentiation (1 obsv/subject: k=1)
 #+ATTR_LATEX: :width \textwidth
 [[./figure/autodiff_diag.pdf]]
 
@@ -339,6 +330,16 @@ Nested ODE solvers:
 :END:
 #+ATTR_LATEX: :width 0.9\textwidth
 [[./figure/everyone_adjoint.jpg]]
+
+** Sensitivity solution
+  # \nabla_{\theta} \hat{y}_{jk}&: ?
+
+\begin{align*}
+  &\frac{d\hat{y}}{dt} = f(t, \hat{y};\theta) \rightarrow \nabla_{\theta} \frac{d\hat{y}}{dt} = \nabla_{\theta} f(t, \hat{y};\theta)\\
+  &\frac{d\nabla_{\theta} \hat{y}}{dt} = f_{\theta} + f_{\hat{y}}\nabla_{\theta}\hat{y}
+\end{align*}
+Use the autodiff calculate $f_{\theta}$ and $f_{\hat{y}}$.
+
 
 
 ** Estimation
