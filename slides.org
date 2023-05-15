@@ -84,7 +84,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
   \end{align*}
 - <3-> Connection to regularization: $\log{p(y | \theta)}= -\frac{(\hat{y}-y)^2}{2\sigma^2}$
   \begin{align*}
-    \min{\|\hat{y}(\theta)-y\| + \lambda\|\theta\|},\\
+    \min{\|\hat{y}(\theta)-y\|^2 + \lambda\|\theta\|^2},\\
     \log p(\theta|y)=-\frac{(\hat{y}-y)^2}{2\sigma^2} + \log p(\theta)
   \end{align*}
   "Tikhonov regularization", "ridge regression", "shrinkage"
@@ -325,7 +325,12 @@ Nested ODE solvers:
 
 ** Automatic differentiation (1 obsv/subject: k=1)
 #+ATTR_LATEX: :width \textwidth
+[[./figure/autodiff_0_diag.pdf]]
+
+** Automatic differentiation (1 obsv/subject: k=1)
+#+ATTR_LATEX: :width \textwidth
 [[./figure/autodiff_diag.pdf]]
+
 
 ** Automatic differentiation
 *** Another model                                                     :BMCOL:
