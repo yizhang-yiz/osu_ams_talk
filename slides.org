@@ -295,11 +295,11 @@ Optimizer is not efficient.
 
 ** Hamiltonian Monte Carlo
 \begin{align*}
-  H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
+  H(\theta, r) &= T(r) + V(\theta) = \frac{1}{2}r^TM^{-1}r - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
   \frac{dr}{dt} = -\frac{\partial H}{\partial \theta},
 \end{align*}
-Apply M-H to $p(r, \theta)$
+Apply M-H to $p(r, \theta) \triangleq \frac{\exp{[-H(\theta, r)]}}{\bigcirc}$
 \begin{align*}
   \alpha((r^{(i)}, \theta^{(i)}), (r^{(i+1)}, \theta^{(i+1)})) &= \min\left[
     1, \frac{p(r^{(i+1)}, \theta^{(i+1)}|y)q()}{p(r^{(i)}, \theta^{(i)}|y)q()}
@@ -320,7 +320,7 @@ Apply M-H to $p(r, \theta)$
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
   \right]\\
-  r \sim \text{Normal}(0, M) \Longrightarrow
+  r \sim \text{Normal}(0, M^{-1}) \Longrightarrow
   (r^{(i)}, \theta^{(i)}) \rightarrow (r^{(i+1)}, \theta^{(i+1)})
 \end{align*}
 # dat <- bind_rows(
@@ -397,4 +397,4 @@ Nested ODE solvers:
 Use the autodiff calculate $f_{\theta}$ and $f_{\hat{y}}$.
 
 
-** Thanks
+** Thank you
