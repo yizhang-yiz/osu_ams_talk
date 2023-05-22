@@ -23,56 +23,95 @@
 #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_ACT(Act) %10BEAMER_extra(Extra)
 #+BEAMER_HEADER: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Table of contents}\tableofcontents[currentsection]\end{frame}}
 
-** NOT to talk about
-# *** dont want 1                                                       :BMCOL:
-# :PROPERTIES:
-# :BEAMER_col: 0.33
-# :END:
-# #+ATTR_LATEX: :width 0.9\textwidth
-# [[./figure/dont_want_1.jpg]]
-
-*** dont want 2                                                       :BMCOL:
+** Thanks
+*** Another model                                                     :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.50
+:BEAMER_col: 0.5
+:END:
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./figure/sxplogo.png]]
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./figure/onr_logo.png]]
+
+*** Another model                                                     :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+ATTR_LATEX: :width 0.3\textwidth
+[[./figure/stan_logo.png]]
+
+- Stan development team (Bob Carpenter, Daniel Lee, Sebastian Weber, ...)
+- Bill Gillespie (Metrum Research Group)
+
+
+
+** NOT to talk about
+*** dont want 1                                                       :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.33
 :END:
 #+ATTR_LATEX: :width 0.9\textwidth
 [[./figure/dont_want_2.jpg]]
 
 
-*** dont want 3                                                       :BMCOL:
+*** dont want 2                                                       :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.50
+:BEAMER_col: 0.33
 :END:
 #+ATTR_LATEX: :width 0.9\textwidth
 [[./figure/dont_want_3.jpg]]
 
+*** dont want 3                                                       :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.33
+:END:
+Inference engine/Probabilistic programing language(PPL)
+- +Language design+
+- Inference algorithms
+- +Model checking & diagnostics+
+- +Model assessment and comparison+
+
 
 * The problem
 ** Pharmacokinetics (PK) data
+*** Data
+:PROPERTIES:
+:BEAMER_col: 0.50
+:END:
 #+CAPTION: Subject plasma concentration history (q12hx14).
-#+ATTR_LATEX: :width 0.9\textwidth
+#+ATTR_LATEX: :width \textwidth
 [[./figure/twocpt_ppc_4x8.pdf]]
+
+*** 2cpt
+:PROPERTIES:
+:BEAMER_col: 0.50
+:END:
+#+ATTR_LATEX: :width \textwidth
+[[./figure/TwoCptNice.png]]
 
 ** A Pharmacokinetics (PK) model
 \begin{align*}
-  \frac{\mathrm d \hat{y}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{y}_\mathrm{gut} \\
-  \frac{\mathrm d \hat{y}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{y}_\mathrm{gut} -\left (k_{\text{CL}} + k_{\text{Q,cent}} \right) \hat{y}_\mathrm{cent} + k_{\text{Q,peri}} \hat{y}_\mathrm{peri} \\
-  \frac{\mathrm d \hat{y}_\mathrm{peri}}{\mathrm d t} & = k_{\text{Q,cent}} \hat{y}_\mathrm{cent} - k_{\text{Q,peri}} \hat{y}_\mathrm{peri}
+  \frac{\mathrm d \hat{z}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{z}_\mathrm{gut} \\
+  \frac{\mathrm d \hat{z}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{z}_\mathrm{gut} -\left (\frac{\text{CL}}{V_{\text{cent}}} + \frac{Q}{V_{\text{cent}}} \right) \hat{z}_\mathrm{cent} + \frac{Q}{V_{\text{peri}}} \hat{z}_\mathrm{peri} \\
+  \frac{\mathrm d \hat{z}_\mathrm{peri}}{\mathrm d t} & = \frac{Q}{V_{\text{cent}}} \hat{z}_\mathrm{cent} - \frac{Q}{V_{\text{peri}}} \hat{z}_\mathrm{peri},\\
 \end{align*}
-
-#+ATTR_LATEX: :width 0.6\textwidth
-[[./figure/TwoCptNice.png]]
-
-** A statistical model
+With $\hat{y} = \frac{\hat{z}}{V_{\text{cent}}}$:
 \begin{align*}
-\theta & \equiv \{k_a, k_{\text{CL}}, k_{\text{Q,}\cdot}\},\\
+\theta & \equiv \{k_a, \text{CL}, Q, V_{\text{cent}}, V_{\text{peri}}, \dots\},\\
 \hat{y}(t) & = \hat{y}(t;\theta),\\
 y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{align*}
 
+** A statistical model
 - play mix & match with two models
-- Likelihood $p(y | \theta)$.
+- Likelihood $p(y | \theta)$
+  \begin{align*}
+    p(y| \theta) &=\frac{1}{\sqrt{2\pi\sigma^2}}\exp{-\frac{(\hat{y}-y)^2}{2\sigma^2}},\\
+    \log p(y|\theta) &=-\frac{(\hat{y}-y)^2}{2\sigma^2}-\log{2\pi\sigma^2}
+  \end{align*}
 - Usually $\sigma$ is also unknow so likelihood $p(y | \theta, \sigma)$
+
 
 ** Estimate $\theta$
 - <1->  Maximum likelihood estimation
@@ -359,22 +398,3 @@ Use the autodiff calculate $f_{\theta}$ and $f_{\hat{y}}$.
 
 
 ** Thanks
-*** Another model                                                     :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-#+ATTR_LATEX: :width 0.8\textwidth
-[[./figure/sxplogo.png]]
-#+ATTR_LATEX: :width 0.8\textwidth
-[[./figure/onr_logo.png]]
-
-*** Another model                                                     :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-
-#+ATTR_LATEX: :width 0.3\textwidth
-[[./figure/stan_logo.png]]
-
-- Stan development team (Bob Carpenter, Daniel Lee, Sebastian Weber, ...)
-- Bill Gillespie (Metrum Research Group)

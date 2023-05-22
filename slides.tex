@@ -1,4 +1,4 @@
-% Created 2023-05-15 Mon 09:35
+% Created 2023-05-21 Sun 10:56
 % Intended LaTeX compiler: pdflatex
 \documentclass[bigger]{beamer}
 \usepackage[utf8]{inputenc}
@@ -41,61 +41,109 @@
 \end{frame}
 
 
-\begin{frame}[label={sec:orge4d135e}]{NOT to talk about}
+\begin{frame}[label={sec:org67665d2}]{Thanks}
 \begin{columns}
-\begin{column}{0.50\columnwidth}
+\begin{column}{0.5\columnwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./figure/sxplogo.png}
+\end{center}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./figure/onr_logo.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{center}
+\includegraphics[width=0.3\textwidth]{./figure/stan_logo.png}
+\end{center}
+
+\begin{itemize}
+\item Stan development team (Bob Carpenter, Daniel Lee, Sebastian Weber, \ldots{})
+\item Bill Gillespie (Metrum Research Group)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}[label={sec:org01490dc}]{NOT to talk about}
+\begin{columns}
+\begin{column}{0.33\columnwidth}
 \begin{center}
 \includegraphics[width=0.9\textwidth]{./figure/dont_want_2.jpg}
 \end{center}
 \end{column}
 
 
-\begin{column}{0.50\columnwidth}
+\begin{column}{0.33\columnwidth}
 \begin{center}
 \includegraphics[width=0.9\textwidth]{./figure/dont_want_3.jpg}
 \end{center}
+\end{column}
+
+\begin{column}{0.33\columnwidth}
+Inference engine/Probabilistic programing language(PPL)
+\begin{itemize}
+\item \sout{Language design}
+\item Inference algorithms
+\item \sout{Model checking \& diagnostics}
+\item \sout{Model assessment and comparison}
+\end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
 
 
 \section{The problem}
-\label{sec:orgc86c144}
-\begin{frame}[label={sec:orgb90add0}]{Pharmacokinetics (PK) data}
+\label{sec:org9b0ce37}
+\begin{frame}[label={sec:org9171c2f}]{Pharmacokinetics (PK) data}
+\begin{columns}
+\begin{column}{0.50\columnwidth}
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\textwidth]{./figure/twocpt_ppc_4x8.pdf}
+\includegraphics[width=\textwidth]{./figure/twocpt_ppc_4x8.pdf}
 \caption{Subject plasma concentration history (q12hx14).}
 \end{figure}
-\end{frame}
+\end{column}
 
-\begin{frame}[label={sec:org1627c86}]{A Pharmacokinetics (PK) model}
-\begin{align*}
-  \frac{\mathrm d \hat{y}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{y}_\mathrm{gut} \\
-  \frac{\mathrm d \hat{y}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{y}_\mathrm{gut} -\left (k_{\text{CL}} + k_{\text{Q,cent}} \right) \hat{y}_\mathrm{cent} + k_{\text{Q,peri}} \hat{y}_\mathrm{peri} \\
-  \frac{\mathrm d \hat{y}_\mathrm{peri}}{\mathrm d t} & = k_{\text{Q,cent}} \hat{y}_\mathrm{cent} - k_{\text{Q,peri}} \hat{y}_\mathrm{peri}
-\end{align*}
-
+\begin{column}{0.50\columnwidth}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{./figure/TwoCptNice.png}
+\includegraphics[width=\textwidth]{./figure/TwoCptNice.png}
 \end{center}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org4aafb38}]{A statistical model}
+\begin{frame}[label={sec:orgb840ea1}]{A Pharmacokinetics (PK) model}
 \begin{align*}
-\theta & \equiv \{k_a, k_{\text{CL}}, k_{\text{Q,}\cdot}\},\\
+  \frac{\mathrm d \hat{z}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{z}_\mathrm{gut} \\
+  \frac{\mathrm d \hat{z}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{z}_\mathrm{gut} -\left (\frac{\text{CL}}{V_{\text{cent}}} + \frac{Q}{V_{\text{cent}}} \right) \hat{z}_\mathrm{cent} + \frac{Q}{V_{\text{peri}}} \hat{z}_\mathrm{peri} \\
+  \frac{\mathrm d \hat{z}_\mathrm{peri}}{\mathrm d t} & = \frac{Q}{V_{\text{cent}}} \hat{z}_\mathrm{cent} - \frac{Q}{V_{\text{peri}}} \hat{z}_\mathrm{peri},\\
+\end{align*}
+With \(\hat{y} = \frac{\hat{z}}{V_{\text{cent}}}\):
+\begin{align*}
+\theta & \equiv \{k_a, \text{CL}, Q, V_{\text{cent}}, V_{\text{peri}}, \dots\},\\
 \hat{y}(t) & = \hat{y}(t;\theta),\\
 y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{align*}
+\end{frame}
 
+\begin{frame}[label={sec:org0228fcc}]{A statistical model}
 \begin{itemize}
 \item play mix \& match with two models
-\item Likelihood \(p(y | \theta)\).
+\item Likelihood \(p(y | \theta)\)
+\begin{align*}
+  p(y| \theta) &=\frac{1}{\sqrt{2\pi\sigma^2}}\exp{-\frac{(\hat{y}-y)^2}{2\sigma^2}},\\
+  \log p(y|\theta) &=-\frac{(\hat{y}-y)^2}{2\sigma^2}-\log{2\pi\sigma^2}
+\end{align*}
 \item Usually \(\sigma\) is also unknow so likelihood \(p(y | \theta, \sigma)\)
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgdaf8db1}]{Estimate \(\theta\)}
+
+\begin{frame}[label={sec:org81731df}]{Estimate \(\theta\)}
 \begin{itemize}
 \item <1->  Maximum likelihood estimation
 \(\theta_{\text{argmax}}(p(y|\theta))\)
@@ -113,7 +161,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org3f8c88d}]{Prior \& likelihood}
+\begin{frame}[label={sec:org4375f46}]{Prior \& likelihood}
 \begin{align*}
   \log{p(\theta|y)} &= C + \log{p(y | \theta)} + \log{p(\theta)}
 \end{align*}
@@ -123,7 +171,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org28c5e80}]{Sample the posterior}
+\begin{frame}[label={sec:orgd2603e9}]{Sample the posterior}
 \(\text{target (distribution)} = \log{p(\theta|y)} = \log{p(y | \theta)} + \log{p(\theta)}\)
 
 \begin{itemize}
@@ -138,20 +186,20 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:orgb00c110}]{Posterior samples: trace}
+\begin{frame}[label={sec:org22e80c2}]{Posterior samples: trace}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twoCpt_trace.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org192f2eb}]{Posterior samples: density}
+\begin{frame}[label={sec:org59391cf}]{Posterior samples: density}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twoCpt_dens.pdf}
 \end{center}
 \end{frame}
 
 
-\begin{frame}[label={sec:orgb156654}]{The Metropolis-Hastings algorithm}
+\begin{frame}[label={sec:orge6a87b0}]{The Metropolis-Hastings algorithm}
 Proposal-rejection from \(\theta^{(i)}\) to \(\theta^{(i+1)}\).
 \begin{enumerate}
 \item Propose \(\theta^{(i+1)}\) according to transition density \(q(\theta^{(i+1)}, \theta^{(i)})\).
@@ -171,7 +219,7 @@ its stationary distribution.
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgb583b8a}]{Why MCMC?}
+\begin{frame}[label={sec:orgd82c714}]{Why MCMC?}
 \begin{quote}
 Monte Carlo is an extremely bad method; it should be used only when all alternative methods
 are worse.
@@ -184,14 +232,14 @@ are worse.
 
 
 \section{You're Gonna Need a Bigger Boat}
-\label{sec:orgcd71e35}
-\begin{frame}[label={sec:orgdc16274}]{The problem}
+\label{sec:orgc0cbd9c}
+\begin{frame}[label={sec:org0e9d8b7}]{The problem}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/twocpt_pop_ppc1.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org105090f}]{Hierarchical model}
+\begin{frame}[label={sec:org04fe7b6}]{Hierarchical model}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -216,7 +264,7 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org03f0998}]{Challenges: high dimensional gaussian distribution}
+\begin{frame}[label={sec:org7e13185}]{Challenges: high dimensional gaussian distribution}
 \(p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0\).
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -242,7 +290,7 @@ Random Walk sampler is not efficient.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org91fd278}]{Challenges: Geometry of posterior}
+\begin{frame}[label={sec:org409ff95}]{Challenges: Geometry of posterior}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -266,8 +314,8 @@ Optimizer is not efficient.
 \end{frame}
 
 \section{Up In the Air}
-\label{sec:orgd6840a5}
-\begin{frame}[label={sec:orgc4045a2}]{Hamiltonian Monte Carlo}
+\label{sec:orga4301fd}
+\begin{frame}[label={sec:orgf058999}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -289,7 +337,7 @@ Optimizer is not efficient.
 \end{frame}
 
 
-\begin{frame}[label={sec:org9e0bfd5}]{Hamiltonian Monte Carlo}
+\begin{frame}[label={sec:org4c55cd1}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -312,7 +360,7 @@ Apply M-H to \(p(r, \theta)\)
 \end{frame}
 
 
-\begin{frame}[label={sec:org239f5c9}]{A principled sampler for \(p(\theta|y)\)}
+\begin{frame}[label={sec:org6adaad4}]{A principled sampler for \(p(\theta|y)\)}
 \begin{align*}
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
@@ -337,8 +385,8 @@ Apply M-H to \(p(r, \theta)\)
 
 
 \section{Small moves, Ellie. Small moves}
-\label{sec:orga38e84d}
-\begin{frame}[label={sec:orgb75b40a}]{A tale of two ODEs}
+\label{sec:org89b0575}
+\begin{frame}[label={sec:org036e498}]{A tale of two ODEs}
 \(\theta\)\textsuperscript{(i)} = \{\(\theta\)\textsuperscript{(i)}\textsubscript{j}\}, j=1,2,\dots{},n: \((r, \theta)(\tau^{(i)}) \rightarrow (r, \theta)(\tau^{(i+1)})\)
 \begin{align*}
 \begin{cases}
@@ -354,20 +402,20 @@ Nested ODE solvers:
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org5094dec}]{Automatic differentiation (1 obsv/subject: k=1)}
+\begin{frame}[label={sec:org33f2354}]{Automatic differentiation (1 obsv/subject: k=1)}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/autodiff_0_diag.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org32da1b6}]{Automatic differentiation (1 obsv/subject: k=1)}
+\begin{frame}[label={sec:org6631305}]{Automatic differentiation (1 obsv/subject: k=1)}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/autodiff_diag.pdf}
 \end{center}
 \end{frame}
 
 
-\begin{frame}[label={sec:orgcfaf1c3}]{Automatic differentiation}
+\begin{frame}[label={sec:org891314f}]{Automatic differentiation}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -383,7 +431,7 @@ Nested ODE solvers:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org98cb013}]{Sensitivity solution}
+\begin{frame}[label={sec:org70212c5}]{Sensitivity solution}
 \begin{align*}
   &\frac{d\hat{y}}{dt} = f(t, \hat{y};\theta) \rightarrow \nabla_{\theta} \frac{d\hat{y}}{dt} = \nabla_{\theta} f(t, \hat{y};\theta)\\
   &\frac{d\nabla_{\theta} \hat{y}}{dt} = f_{\theta} + f_{\hat{y}}\nabla_{\theta}\hat{y}
@@ -392,27 +440,6 @@ Use the autodiff calculate \(f_{\theta}\) and \(f_{\hat{y}}\).
 \end{frame}
 
 
-\begin{frame}[label={sec:org264eb25}]{Thanks}
-\begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{./figure/sxplogo.png}
-\end{center}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{./figure/onr_logo.png}
-\end{center}
-\end{column}
-
-\begin{column}{0.5\columnwidth}
-\begin{center}
-\includegraphics[width=0.3\textwidth]{./figure/stan_logo.png}
-\end{center}
-
-\begin{itemize}
-\item Stan development team (Bob Carpenter, Daniel Lee, Sebastian Weber, \ldots{})
-\item Bill Gillespie (Metrum Research Group)
-\end{itemize}
-\end{column}
-\end{columns}
+\begin{frame}[label={sec:orgc105ae9}]{Thanks}
 \end{frame}
 \end{document}
