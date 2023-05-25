@@ -45,8 +45,7 @@
 - Bill Gillespie (Metrum Research Group)
 
 
-
-** NOT to talk about
+** Disclaimer
 *** dont want 1                                                       :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.33
@@ -151,12 +150,14 @@ $\text{target (distribution)} = \log{p(\theta|y)} = \log{p(y | \theta)} + \log{p
 ** Posterior samples: trace
 :PROPERTIES:
 :END:
+#+caption: Trace of the MCMC samples (Margossian, Zhang, Gillespie 2022)
 #+ATTR_LATEX: :width \textwidth
 [[./figure/twoCpt_trace.pdf]]
 
 ** Posterior samples: density
 :PROPERTIES:
 :END:
+#+caption: Estimated density (Margossian, Zhang, Gillespie 2022)
 #+ATTR_LATEX: :width \textwidth
 [[./figure/twoCpt_dens.pdf]]
 
@@ -188,6 +189,7 @@ are worse.
 
 * You're Gonna Need a Bigger Boat
 ** The problem
+#+caption: PK observation of ten subjects (Margossian, Zhang, Gillespie 2022)
 #+ATTR_LATEX: :width \textwidth
 [[./figure/twocpt_pop_ppc1.pdf]]
 
@@ -207,14 +209,14 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 :PROPERTIES:
 :BEAMER_col: 0.6
 :END:
-- <1-> Posterior(likelihood) equation is an oracle
+- <1-> Increased premium for posterior oracle
 - <2-> Curse of dimensionality
   + <2-> Computational tractability
   + <3-> Concentration of measure (e.g. high dimensional gaussian distribution is like uniform distribution)
 - <4-> Geometry of posterior
 
 ** Challenges: high dimensional gaussian distribution
-$p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0$.
+\small $p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0$ (Vershynin, 2018).
 *** Another model                                                     :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
@@ -232,8 +234,7 @@ $p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0$.
 #+ATTR_LATEX: :width 0.8\textwidth
 [[./figure/high_dim_gaussian.png]]
 
-Average is not representative.
-Random Walk sampler is not efficient.
+\small Average is not representative. Random Walk sampler is not efficient.
 
 *** Another model                                                     :BMCOL:
 :PROPERTIES:
@@ -263,16 +264,15 @@ Random Walk sampler is not efficient.
 :PROPERTIES:
 :BEAMER_col: 0.6
 :END:
-#+caption: Neal's funnel
+#+caption: Neal's funnel (Stan dev team, 2023)
 #+ATTR_LATEX: :width \textwidth
 [[./figure/funnel.png]]
-Mode is not representative.
-Optimizer is not efficient.
+\scriptsize Mode is not representative. Optimizer is not efficient.
 
 * Up In the Air
 ** Hamiltonian Monte Carlo
 \begin{align*}
-  H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
+  H(\theta, r) &= T(r) + V(\theta) = \frac{1}{2}r^TM^{-1}r - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
   \frac{dr}{dt} = -\frac{\partial H}{\partial \theta},
 \end{align*}
@@ -320,7 +320,7 @@ Apply M-H to $p(r, \theta) \triangleq \frac{\exp{[-H(\theta, r)]}}{\bigcirc}$
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
   \right]\\
-  r \sim \text{Normal}(0, M^{-1}) \Longrightarrow
+  r \sim \text{MultiNormal}(0, M^{-1}) \Longrightarrow
   (r^{(i)}, \theta^{(i)}) \rightarrow (r^{(i+1)}, \theta^{(i+1)})
 \end{align*}
 # dat <- bind_rows(

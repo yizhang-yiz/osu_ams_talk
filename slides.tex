@@ -1,4 +1,4 @@
-% Created 2023-05-22 Mon 16:35
+% Created 2023-05-24 Wed 09:48
 % Intended LaTeX compiler: pdflatex
 \documentclass[bigger]{beamer}
 \usepackage[utf8]{inputenc}
@@ -41,7 +41,7 @@
 \end{frame}
 
 
-\begin{frame}[label={sec:org0ad579e}]{Thanks}
+\begin{frame}[label={sec:orgd9ad60f}]{Thanks}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -66,8 +66,7 @@
 \end{frame}
 
 
-
-\begin{frame}[label={sec:orgdffadf6}]{NOT to talk about}
+\begin{frame}[label={sec:orge88ba54}]{Disclaimer}
 \begin{columns}
 \begin{column}{0.33\columnwidth}
 \begin{center}
@@ -96,8 +95,8 @@ Inference engine/Probabilistic programing language(PPL)
 
 
 \section{The problem}
-\label{sec:org57f607b}
-\begin{frame}[label={sec:org93ac846}]{Pharmacokinetics (PK) data}
+\label{sec:orgd25b883}
+\begin{frame}[label={sec:orgebb1ed3}]{Pharmacokinetics (PK) data}
 \begin{columns}
 \begin{column}{0.50\columnwidth}
 \begin{figure}[htbp]
@@ -115,7 +114,7 @@ Inference engine/Probabilistic programing language(PPL)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org4ccad4c}]{A Pharmacokinetics (PK) model}
+\begin{frame}[label={sec:org209a079}]{A Pharmacokinetics (PK) model}
 \begin{align*}
   \frac{\mathrm d \hat{z}_\mathrm{gut}}{\mathrm d t} & = - k_a \hat{z}_\mathrm{gut} \\
   \frac{\mathrm d \hat{z}_\mathrm{cent}}{\mathrm d t} & = k_a \hat{z}_\mathrm{gut} -\left (\frac{\text{CL}}{V_{\text{cent}}} + \frac{Q}{V_{\text{cent}}} \right) \hat{z}_\mathrm{cent} + \frac{Q}{V_{\text{peri}}} \hat{z}_\mathrm{peri} \\
@@ -129,7 +128,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org639e0cb}]{A statistical model}
+\begin{frame}[label={sec:org06f9571}]{A statistical model}
 \begin{itemize}
 \item play mix \& match with two models
 \item Likelihood \(p(y | \theta)\)
@@ -142,7 +141,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org8e0786b}]{Estimate \(\theta\)}
+\begin{frame}[label={sec:org504f42c}]{Estimate \(\theta\)}
 \begin{itemize}
 \item <1->  Maximum likelihood estimation
 \(\theta_{\text{argmax}}(p(y|\theta))\)
@@ -160,7 +159,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgdb484e8}]{Prior \& likelihood}
+\begin{frame}[label={sec:org1679913}]{Prior \& likelihood}
 \begin{align*}
   \log{p(\theta|y)} &= C + \log{p(y | \theta)} + \log{p(\theta)}
 \end{align*}
@@ -170,7 +169,7 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:org71b4b91}]{Sample the posterior}
+\begin{frame}[label={sec:orgea0ceb3}]{Sample the posterior}
 \(\text{target (distribution)} = \log{p(\theta|y)} = \log{p(y | \theta)} + \log{p(\theta)}\)
 
 \begin{itemize}
@@ -185,20 +184,24 @@ y(t) &\sim \text{Normal}(\hat{y}(t;\theta), \sigma).
 \end{frame}
 
 
-\begin{frame}[label={sec:orga2818da}]{Posterior samples: trace}
-\begin{center}
+\begin{frame}[label={sec:orgfae21b4}]{Posterior samples: trace}
+\begin{figure}[htbp]
+\centering
 \includegraphics[width=\textwidth]{./figure/twoCpt_trace.pdf}
-\end{center}
+\caption{Trace of the MCMC samples (Margossian, Zhang, Gillespie 2022)}
+\end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org5bab679}]{Posterior samples: density}
-\begin{center}
+\begin{frame}[label={sec:org4de8c4d}]{Posterior samples: density}
+\begin{figure}[htbp]
+\centering
 \includegraphics[width=\textwidth]{./figure/twoCpt_dens.pdf}
-\end{center}
+\caption{Estimated density (Margossian, Zhang, Gillespie 2022)}
+\end{figure}
 \end{frame}
 
 
-\begin{frame}[label={sec:orgca20e34}]{The Metropolis-Hastings algorithm}
+\begin{frame}[label={sec:org8b4e383}]{The Metropolis-Hastings algorithm}
 Proposal-rejection from \(\theta^{(i)}\) to \(\theta^{(i+1)}\).
 \begin{enumerate}
 \item Propose \(\theta^{(i+1)}\) according to transition density \(q(\theta^{(i+1)}, \theta^{(i)})\).
@@ -218,7 +221,7 @@ its stationary distribution.
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org5ad4fa2}]{Why MCMC?}
+\begin{frame}[label={sec:org1713aa2}]{Why MCMC?}
 \begin{quote}
 Monte Carlo is an extremely bad method; it should be used only when all alternative methods
 are worse.
@@ -231,14 +234,16 @@ are worse.
 
 
 \section{You're Gonna Need a Bigger Boat}
-\label{sec:org3b57200}
-\begin{frame}[label={sec:org3f79220}]{The problem}
-\begin{center}
+\label{sec:org0be5a07}
+\begin{frame}[label={sec:org62f3674}]{The problem}
+\begin{figure}[htbp]
+\centering
 \includegraphics[width=\textwidth]{./figure/twocpt_pop_ppc1.pdf}
-\end{center}
+\caption{PK observation of ten subjects (Margossian, Zhang, Gillespie 2022)}
+\end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:orgd2b1c6d}]{Hierarchical model}
+\begin{frame}[label={sec:org549deca}]{Hierarchical model}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -251,7 +256,7 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 
 \begin{column}{0.6\columnwidth}
 \begin{itemize}
-\item <1-> Posterior(likelihood) equation is an oracle
+\item <1-> Increased premium for posterior oracle
 \item <2-> Curse of dimensionality
 \begin{itemize}
 \item <2-> Computational tractability
@@ -263,8 +268,8 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgb22c5b1}]{Challenges: high dimensional gaussian distribution}
-\(p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0\).
+\begin{frame}[label={sec:org6c1bdec}]{Challenges: high dimensional gaussian distribution}
+\small \(p(|\|y_d\|_2-\sqrt{d}| \ge t) \le 2\exp{(-ct^2)}, \forall t\ge 0\) (Vershynin, 2018).
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{figure}[htbp]
@@ -273,8 +278,7 @@ y_i &\sim \text{Normal}(\hat{y}_i(\theta_i), \sigma),\\
 \caption{\(\|y_d\|_2, y_d \sim \text{Normal}(0, \mathbb{I}_d)\)}
 \end{figure}
 
-Average is not representative.
-Random Walk sampler is not efficient.
+\small Average is not representative. Random Walk sampler is not efficient.
 \end{column}
 
 \begin{column}{0.5\columnwidth}
@@ -289,7 +293,7 @@ Random Walk sampler is not efficient.
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org09f8e88}]{Challenges: Geometry of posterior}
+\begin{frame}[label={sec:org53e2056}]{Challenges: Geometry of posterior}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{align*}
@@ -304,19 +308,18 @@ Random Walk sampler is not efficient.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{./figure/funnel.png}
-\caption{Neal's funnel}
+\caption{Neal's funnel (Stan dev team, 2023)}
 \end{figure}
-Mode is not representative.
-Optimizer is not efficient.
+\scriptsize Mode is not representative. Optimizer is not efficient.
 \end{column}
 \end{columns}
 \end{frame}
 
 \section{Up In the Air}
-\label{sec:org651f0d2}
-\begin{frame}[label={sec:org5162287}]{Hamiltonian Monte Carlo}
+\label{sec:org41c2262}
+\begin{frame}[label={sec:org9d561ff}]{Hamiltonian Monte Carlo}
 \begin{align*}
-  H(\theta, r) &= -\log{p(r, \theta | y)} = T(r) + V(\theta) = -\log{r} - \log{p(\theta|y)},\\
+  H(\theta, r) &= T(r) + V(\theta) = \frac{1}{2}r^TM^{-1}r - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
   \frac{dr}{dt} = -\frac{\partial H}{\partial \theta},
 \end{align*}
@@ -336,7 +339,7 @@ Optimizer is not efficient.
 \end{frame}
 
 
-\begin{frame}[label={sec:orgdc156e3}]{Hamiltonian Monte Carlo}
+\begin{frame}[label={sec:org29ebbcb}]{Hamiltonian Monte Carlo}
 \begin{align*}
   H(\theta, r) &= T(r) + V(\theta) = \frac{1}{2}r^TM^{-1}r - \log{p(\theta|y)},\\
   \frac{d\theta}{dt} &= \frac{\partial H}{\partial r},\qquad
@@ -359,12 +362,12 @@ Apply M-H to \(p(r, \theta) \triangleq \frac{\exp{[-H(\theta, r)]}}{\bigcirc}\)
 \end{frame}
 
 
-\begin{frame}[label={sec:org998ce0a}]{A principled sampler for \(p(\theta|y)\)}
+\begin{frame}[label={sec:org74d3318}]{A principled sampler for \(p(\theta|y)\)}
 \begin{align*}
   p(\theta^{(i)} \rightarrow \theta^{(i+1)}) =\min\left[
     1, \exp{(H(\theta^{(i)}, r^{(i)}) - H(\theta^{(i+1)}, r^{(i+1)}))}
   \right]\\
-  r \sim \text{Normal}(0, M^{-1}) \Longrightarrow
+  r \sim \text{MultiNormal}(0, M^{-1}) \Longrightarrow
   (r^{(i)}, \theta^{(i)}) \rightarrow (r^{(i+1)}, \theta^{(i+1)})
 \end{align*}
 \begin{columns}
@@ -384,8 +387,8 @@ Apply M-H to \(p(r, \theta) \triangleq \frac{\exp{[-H(\theta, r)]}}{\bigcirc}\)
 
 
 \section{Small moves, Ellie. Small moves}
-\label{sec:orgd5a2022}
-\begin{frame}[label={sec:org1e5c613}]{A tale of two ODEs}
+\label{sec:org3e1b958}
+\begin{frame}[label={sec:org1f4ca30}]{A tale of two ODEs}
 \(\theta\)\textsuperscript{(i)} = \{\(\theta\)\textsuperscript{(i)}\textsubscript{j}\}, j=1,2,\dots{},n: \((r, \theta)(\tau^{(i)}) \rightarrow (r, \theta)(\tau^{(i+1)})\)
 \begin{align*}
 \begin{cases}
@@ -401,20 +404,20 @@ Nested ODE solvers:
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org2cd74da}]{Automatic differentiation (1 obsv/subject: k=1)}
+\begin{frame}[label={sec:orge2d13ff}]{Automatic differentiation (1 obsv/subject: k=1)}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/autodiff_0_diag.pdf}
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org702113b}]{Automatic differentiation (1 obsv/subject: k=1)}
+\begin{frame}[label={sec:org2327372}]{Automatic differentiation (1 obsv/subject: k=1)}
 \begin{center}
 \includegraphics[width=\textwidth]{./figure/autodiff_diag.pdf}
 \end{center}
 \end{frame}
 
 
-\begin{frame}[label={sec:org6d92043}]{Automatic differentiation}
+\begin{frame}[label={sec:orgcb2d885}]{Automatic differentiation}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -430,7 +433,7 @@ Nested ODE solvers:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org86b8957}]{Sensitivity solution}
+\begin{frame}[label={sec:orgba0bbfa}]{Sensitivity solution}
 \begin{align*}
   &\frac{d\hat{y}}{dt} = f(t, \hat{y};\theta) \rightarrow \nabla_{\theta} \frac{d\hat{y}}{dt} = \nabla_{\theta} f(t, \hat{y};\theta)\\
   &\frac{d\nabla_{\theta} \hat{y}}{dt} = f_{\theta} + f_{\hat{y}}\nabla_{\theta}\hat{y}
@@ -439,6 +442,6 @@ Use the autodiff calculate \(f_{\theta}\) and \(f_{\hat{y}}\).
 \end{frame}
 
 
-\begin{frame}[label={sec:org1f18bda}]{Thank you}
+\begin{frame}[label={sec:org9578021}]{Thank you}
 \end{frame}
 \end{document}
